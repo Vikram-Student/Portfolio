@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vikram-student.github.io/Portfolio/sitemap.xml
