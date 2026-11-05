@@ -3443,3 +3443,368 @@ body.light-mode
         -webkit-backdrop-filter: none;
     }
 }
+
+/* =========================================
+   CINEMATIC PORTFOLIO INTRO — NOCTIS STYLE
+========================================= */
+
+:root {
+    --cinematic-bg: #07080A;
+    --cinematic-surface: #121418;
+    --cinematic-text: #EDEAE4;
+    --cinematic-muted: #8A8F98;
+    --cinematic-accent: #CFE3FF;
+    --cinematic-red: #E1251B;
+    --cinematic-border: rgba(237, 234, 228, 0.16);
+}
+
+#cinematic-intro {
+    position: relative;
+    width: 100%;
+    background: var(--cinematic-bg);
+    color: var(--cinematic-text);
+    font-family: "Inter", sans-serif;
+    overflow: clip;
+    z-index: 1001;
+}
+
+.cinematic-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 10005;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cinematic-bg);
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.cinematic-preloader.is-loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.preloader-content {
+    width: min(420px, 80%);
+    text-align: center;
+}
+
+.preloader-content h1 {
+    margin: 0 0 35px;
+    font-family: "Archivo", sans-serif;
+    font-size: clamp(22px, 5vw, 38px);
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.preloader-line {
+    width: 100%;
+    height: 2px;
+    background: rgba(237, 234, 228, 0.16);
+    overflow: hidden;
+}
+
+.preloader-line span {
+    display: block;
+    width: 0%;
+    height: 100%;
+    background: var(--cinematic-accent);
+    transition: width 0.2s ease;
+}
+
+#preloader-counter {
+    display: block;
+    margin-top: 15px;
+    color: var(--cinematic-accent);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+}
+
+.preloader-content > p {
+    margin-top: 10px;
+    color: var(--cinematic-muted);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+}
+
+.cinematic-hero {
+    position: relative;
+    height: 600vh;
+    min-height: 500vh;
+    background: var(--cinematic-bg);
+}
+
+.cinematic-stage {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    min-height: 520px;
+    overflow: hidden;
+    background: var(--cinematic-bg);
+}
+
+#cinematic-canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cinematic-stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7, 8, 10, 0.66) 0%,
+            rgba(7, 8, 10, 0.15) 65%,
+            rgba(7, 8, 10, 0.22) 100%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(7, 8, 10, 0.55) 0%,
+            transparent 35%,
+            rgba(7, 8, 10, 0.18) 100%
+        );
+}
+
+.cinematic-chapter {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: clamp(28px, 9vw, 140px);
+    width: min(750px, 78%);
+    transform: translateY(-42%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.55s ease, transform 0.55s ease, visibility 0.55s ease;
+    pointer-events: none;
+}
+
+.cinematic-chapter.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%);
+}
+
+.cinematic-eyebrow {
+    margin: 0 0 24px;
+    color: var(--cinematic-accent);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+}
+
+.cinematic-chapter h2 {
+    margin: 0;
+    color: var(--cinematic-text);
+    font-family: "Archivo", sans-serif;
+    font-size: clamp(48px, 8.5vw, 120px);
+    font-weight: 800;
+    line-height: 0.94;
+    letter-spacing: -0.065em;
+    text-transform: uppercase;
+}
+
+.cinematic-description {
+    margin-top: 28px;
+    color: rgba(237, 234, 228, 0.8);
+    font-size: clamp(13px, 1.4vw, 17px);
+    letter-spacing: 0.02em;
+}
+
+.scroll-indicator {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 65px;
+    color: var(--cinematic-muted);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+}
+
+.scroll-line {
+    display: block;
+    width: 65px;
+    height: 1px;
+    background: var(--cinematic-accent);
+    transform-origin: left;
+    animation: cinematic-scroll-line 1.8s ease-in-out infinite;
+}
+
+@keyframes cinematic-scroll-line {
+    0%, 100% {
+        transform: scaleX(0.35);
+        opacity: 0.45;
+    }
+    50% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+.cinematic-enter {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    margin-top: 42px;
+    padding: 17px 0;
+    border-top: 1px solid var(--cinematic-border);
+    border-bottom: 1px solid var(--cinematic-border);
+    color: var(--cinematic-text);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    pointer-events: auto;
+    transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.cinematic-enter:hover {
+    color: var(--cinematic-accent);
+    gap: 40px;
+}
+
+.cinematic-enter span {
+    font-size: 18px;
+}
+
+.cinematic-hud {
+    position: absolute;
+    z-index: 3;
+    right: clamp(22px, 5vw, 70px);
+    bottom: 38px;
+    left: clamp(22px, 5vw, 70px);
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    color: rgba(237, 234, 228, 0.7);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.13em;
+}
+
+#cinematic-frame-counter {
+    color: var(--cinematic-accent);
+}
+
+.cinematic-progress {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: rgba(237, 234, 228, 0.15);
+}
+
+.cinematic-progress span {
+    display: block;
+    width: 0%;
+    height: 100%;
+    background: var(--cinematic-accent);
+}
+
+.skip-cinematic-intro {
+    position: fixed;
+    z-index: 10004;
+    top: 24px;
+    right: 28px;
+    padding: 12px 16px;
+    border: 1px solid var(--cinematic-border);
+    border-radius: 0;
+    background: rgba(7, 8, 10, 0.75);
+    color: var(--cinematic-text);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+.skip-cinematic-intro:hover {
+    background: var(--cinematic-text);
+    color: var(--cinematic-bg);
+}
+
+#cinematic-intro.is-skipped .cinematic-hero {
+    display: none;
+}
+
+#cinematic-intro.is-skipped .skip-cinematic-intro {
+    display: none;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+    .cinematic-hero {
+        height: 500vh;
+        min-height: 450vh;
+    }
+
+    .cinematic-stage {
+        min-height: 480px;
+    }
+
+    .cinematic-chapter {
+        left: 25px;
+        width: calc(100% - 50px);
+    }
+
+    .cinematic-chapter h2 {
+        font-size: clamp(43px, 12vw, 76px);
+    }
+
+    .cinematic-eyebrow {
+        font-size: 9px;
+        letter-spacing: 0.16em;
+    }
+
+    .cinematic-description {
+        max-width: 280px;
+    }
+
+    .scroll-indicator {
+        margin-top: 45px;
+    }
+
+    .cinematic-hud {
+        right: 20px;
+        bottom: 25px;
+        left: 20px;
+        font-size: 8px;
+    }
+
+    .skip-cinematic-intro {
+        top: 16px;
+        right: 16px;
+        padding: 10px 12px;
+        font-size: 8px;
+    }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .scroll-line {
+        animation: none;
+    }
+
+    .cinematic-chapter,
+    .cinematic-preloader,
+    .cinematic-enter,
+    .skip-cinematic-intro {
+        transition: none;
+    }
+}

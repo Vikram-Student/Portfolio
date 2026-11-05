@@ -741,3 +741,437 @@ function setSubmitState(isSubmitting) {
             : "Send Message";
     }
 }
+
+/* =========================================
+   CINEMATIC PORTFOLIO INTRO
+   Image sequence + scroll animation
+========================================= */
+
+(() => {
+    "use strict";
+
+    const config = window.PORTFOLIO_CONFIG;
+
+    const intro = document.getElementById("cinematic-intro");
+    const hero = document.getElementById("cinematic-hero");
+    const canvas = document.getElementById("cinematic-canvas");
+    const preloader = document.getElementById("cinematic-preloader");
+    const preloaderProgress = document.getElementById("preloader-progress");
+    const preloaderCounter = document.getElementById("preloader-counter");
+    const frameCounter = document.getElementById("cinematic-frame-counter");
+    const progressBar = document.getElementById("cinematic-progress-bar");
+    const skipButton = document.getElementById("skip-cinematic-intro");
+    const enterButton = document.querySelector(".cinematic-enter");
+
+    if (
+        !config ||
+        !intro ||
+        !hero ||
+        !canvas ||
+        !preloader ||
+        !config.hero?.transitions
+    ) {
+        console.warn("Cinematic intro: required elements or config are missing.");
+        return;
+    }
+
+    const context = canvas.getContext("2d");
+
+    if (!context) {
+        console.warn("Cinematic intro: canvas is not supported.");
+        preloader.classList.add("is-loaded");
+        return;
+    }
+
+    const transitions = config.hero.transitions;
+    const totalFrames = transitions.reduce(
+        (total, transition) => total + transition.frames,
+        0
+    );
+
+    const frameSources = [];
+
+    transitions.forEach((transition) => {
+        for (let frame = 1; frame <= transition.frames; frame++) {
+            const frameNumber = String(frame).padStart(
+                config.hero.frameDigits,
+                "0"
+            );
+
+            frameSources.push(
+                `${config.hero.basePath}${transition.name}/` +
+                `${config.hero.framePrefix}${frameNumber}` +
+                `${config.hero.frameExtension}`
+            );
+        }
+    });
+
+    const images = new Array(totalFrames);
+    const loadedFrames = new Set();
+
+    let currentFrame = 0;
+    let targetFrame = 0;
+    let animationStarted = false;
+    let animationFrameId = null;
+    let isSkipped = false;
+    let preloadStarted = false;
+
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const smoothing = reducedMotion
+        ? 1
+        : config.animation.smoothing;
+
+    /* -------------------------------------
+       CANVAS SIZE
+    ------------------------------------- */
+
+    function resizeCanvas() {
+        const pixelRatio = Math.min(
+            window.devicePixelRatio || 1,
+            config.animation.pixelRatioLimit
+        );
+
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+
+        canvas.width = Math.round(width * pixelRatio);
+        canvas.height = Math.round(height * pixelRatio);
+
+        context.setTransform(
+            pixelRatio,
+            0,
+            0,
+            pixelRatio,
+            0,
+            0
+        );
+
+        drawFrame(Math.round(currentFrame));
+    }
+
+    /* -------------------------------------
+       DRAW IMAGE FRAME
+    ------------------------------------- */
+
+    function drawFrame(index) {
+        const image = images[index];
+
+        if (!image || !image.complete || !image.naturalWidth) {
+            return;
+        }
+
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+
+        const imageRatio = image.naturalWidth / image.naturalHeight;
+        const canvasRatio = width / height;
+
+        let drawWidth;
+        let drawHeight;
+        let offsetX;
+        let offsetY;
+
+        if (canvasRatio > imageRatio) {
+            drawWidth = width;
+            drawHeight = width / imageRatio;
+        } else {
+            drawHeight = height;
+            drawWidth = height * imageRatio;
+        }
+
+        offsetX = (width - drawWidth) / 2;
+        offsetY = (height - drawHeight) / 2;
+
+        context.clearRect(0, 0, width, height);
+        context.drawImage(
+            image,
+            offsetX,
+            offsetY,
+            drawWidth,
+            drawHeight
+        );
+    }
+
+    /* -------------------------------------
+       FIND NEAREST LOADED FRAME
+    ------------------------------------- */
+
+    function drawNearestLoadedFrame(index) {
+        if (loadedFrames.has(index)) {
+            drawFrame(index);
+            return;
+        }
+
+        for (let distance = 1; distance < totalFrames; distance++) {
+            const before = index - distance;
+            const after = index + distance;
+
+            if (before >= 0 && loadedFrames.has(before)) {
+                drawFrame(before);
+                return;
+            }
+
+            if (after < totalFrames && loadedFrames.has(after)) {
+                drawFrame(after);
+                return;
+            }
+        }
+    }
+
+    /* -------------------------------------
+       LOAD A SINGLE FRAME
+    ------------------------------------- */
+
+    function loadFrame(index) {
+        if (
+            index < 0 ||
+            index >= totalFrames ||
+            images[index] ||
+            isSkipped
+        ) {
+            return Promise.resolve();
+        }
+
+        return new Promise((resolve) => {
+            const image = new Image();
+
+            image.decoding = "async";
+
+            image.onload = () => {
+                images[index] = image;
+                loadedFrames.add(index);
+                resolve();
+            };
+
+            image.onerror = () => {
+                console.warn("Could not load cinematic frame:", frameSources[index]);
+                resolve();
+            };
+
+            image.src = frameSources[index];
+        });
+    }
+
+    /* -------------------------------------
+       PRELOAD INITIAL FRAMES
+    ------------------------------------- */
+
+    async function preloadInitialFrames() {
+        if (preloadStarted) return;
+        preloadStarted = true;
+
+        const initialCount = Math.min(40, totalFrames);
+        let completed = 0;
+
+        const initialLoads = [];
+
+        for (let index = 0; index < initialCount; index++) {
+            initialLoads.push(
+                loadFrame(index).then(() => {
+                    completed++;
+
+                    const percentage = Math.round(
+                        (completed / initialCount) * 100
+                    );
+
+                    preloaderProgress.style.width = `${percentage}%`;
+                    preloaderCounter.textContent = String(percentage).padStart(3, "0");
+                })
+            );
+        }
+
+        await Promise.all(initialLoads);
+
+        if (isSkipped) return;
+
+        drawNearestLoadedFrame(0);
+        preloader.classList.add("is-loaded");
+
+        animationStarted = true;
+        startBackgroundLoading();
+        startAnimation();
+    }
+
+    /* -------------------------------------
+       LOAD REMAINING FRAMES IN BACKGROUND
+    ------------------------------------- */
+
+    async function startBackgroundLoading() {
+        const batchSize = 12;
+
+        for (
+            let start = 40;
+            start < totalFrames && !isSkipped;
+            start += batchSize
+        ) {
+            const end = Math.min(start + batchSize, totalFrames);
+            const batch = [];
+
+            for (let index = start; index < end; index++) {
+                batch.push(loadFrame(index));
+            }
+
+            await Promise.all(batch);
+
+            if (isSkipped) break;
+        }
+    }
+
+    /* -------------------------------------
+       CHAPTER TEXT TIMING
+    ------------------------------------- */
+
+    function updateChapters(progress) {
+        const chapters = document.querySelectorAll(
+            ".cinematic-chapter"
+        );
+
+        const chapterRanges = [
+            [0.00, 0.20],
+            [0.22, 0.43],
+            [0.48, 0.69],
+            [0.76, 1.01]
+        ];
+
+        chapters.forEach((chapter, index) => {
+            const range = chapterRanges[index];
+
+            if (!range) return;
+
+            const active =
+                progress >= range[0] &&
+                progress < range[1];
+
+            chapter.classList.toggle("is-active", active);
+        });
+    }
+
+    /* -------------------------------------
+       UPDATE SCROLL PROGRESS
+    ------------------------------------- */
+
+    function updateScrollProgress() {
+        if (isSkipped || !animationStarted) return;
+
+        const rect = hero.getBoundingClientRect();
+
+        const scrollDistance =
+            hero.offsetHeight - window.innerHeight;
+
+        if (scrollDistance <= 0) return;
+
+        const progress = Math.min(
+            1,
+            Math.max(0, -rect.top / scrollDistance)
+        );
+
+        targetFrame = progress * (totalFrames - 1);
+
+        if (progressBar) {
+            progressBar.style.width = `${progress * 100}%`;
+        }
+
+        if (frameCounter) {
+            const displayedFrame = Math.round(targetFrame) + 1;
+
+            frameCounter.textContent =
+                `${String(displayedFrame).padStart(4, "0")} / ` +
+                `${String(totalFrames).padStart(4, "0")}`;
+        }
+
+        updateChapters(progress);
+    }
+
+    /* -------------------------------------
+       ANIMATION LOOP
+    ------------------------------------- */
+
+    function animate() {
+        if (!animationStarted || isSkipped) return;
+
+        currentFrame += (targetFrame - currentFrame) * smoothing;
+
+        if (Math.abs(targetFrame - currentFrame) < 0.1) {
+            currentFrame = targetFrame;
+        }
+
+        const frameIndex = Math.max(
+            0,
+            Math.min(totalFrames - 1, Math.round(currentFrame))
+        );
+
+        drawNearestLoadedFrame(frameIndex);
+
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+    function startAnimation() {
+        if (animationFrameId !== null) {
+            cancelAnimationFrame(animationFrameId);
+        }
+
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+    /* -------------------------------------
+       SKIP INTRO
+    ------------------------------------- */
+
+    function skipIntro(event) {
+        if (event) event.preventDefault();
+
+        if (isSkipped) return;
+
+        isSkipped = true;
+        animationStarted = false;
+
+        if (animationFrameId !== null) {
+            cancelAnimationFrame(animationFrameId);
+        }
+
+        intro.classList.add("is-skipped");
+        preloader.classList.add("is-loaded");
+
+        window.scrollTo({
+            top: document.getElementById("home")?.offsetTop || 0,
+            behavior: reducedMotion ? "auto" : "smooth"
+        });
+    }
+
+    if (skipButton) {
+        skipButton.addEventListener("click", skipIntro);
+    }
+
+    if (enterButton) {
+        enterButton.addEventListener("click", skipIntro);
+    }
+
+    /* -------------------------------------
+       EVENT LISTENERS
+    ------------------------------------- */
+
+    window.addEventListener("scroll", updateScrollProgress, {
+        passive: true
+    });
+
+    window.addEventListener("resize", resizeCanvas);
+
+    /* -------------------------------------
+       START
+    ------------------------------------- */
+
+    resizeCanvas();
+
+    if (reducedMotion) {
+        preloader.classList.add("is-loaded");
+        intro.classList.add("is-skipped");
+        isSkipped = true;
+        return;
+    }
+
+    preloadInitialFrames();
+
+})();

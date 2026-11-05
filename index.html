@@ -6,8 +6,7 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
         content="Portfolio of Pedada Vikram, a Computer Science Engineering student and aspiring software developer from Andhra Pradesh, India. Explore my skills, education, learning journey, and projects.">
@@ -15,14 +14,11 @@
     <meta name="keywords"
         content="Pedada Vikram, Vikram Student, Computer Science Engineering Student, CSE Student, Software Developer, Web Developer, Python, Java, JavaScript, HTML, CSS, Portfolio">
 
-    <meta name="author"
-        content="Pedada Vikram">
+    <meta name="author" content="Pedada Vikram">
 
-    <meta name="robots"
-        content="index, follow">
+    <meta name="robots" content="index, follow">
 
-    <meta name="theme-color"
-        content="#0a0a0a">
+    <meta name="theme-color" content="#0a0a0a">
 
 
     <!-- ================= PAGE TITLE ================= -->
@@ -41,60 +37,50 @@
 
     <!-- ================= CANONICAL URL ================= -->
 
-    <link rel="canonical"
-        href="https://vikram-student.github.io/Portfolio/">
+    <link rel="canonical" href="https://vikram-student.github.io/Portfolio/">
 
 
     <!-- ================= OPEN GRAPH ================= -->
 
-    <meta property="og:type"
-        content="website">
+    <meta property="og:type" content="website">
 
-    <meta property="og:title"
-        content="PEDADA VIKRAM | CSE Student & Aspiring Software Developer">
+    <meta property="og:title" content="PEDADA VIKRAM | CSE Student & Aspiring Software Developer">
 
     <meta property="og:description"
         content="Portfolio of Pedada Vikram, a Computer Science Engineering student and aspiring software developer.">
 
-    <meta property="og:url"
-        content="https://vikram-student.github.io/Portfolio/">
+    <meta property="og:url" content="https://vikram-student.github.io/Portfolio/">
 
-    <meta property="og:image"
-        content="https://vikram-student.github.io/Portfolio/assets/images/Vikram.webp">
+    <meta property="og:image" content="https://vikram-student.github.io/Portfolio/assets/images/Vikram.webp">
 
-    <meta property="og:image:alt"
-        content="Pedada Vikram - Computer Science Engineering Student">
+    <meta property="og:image:alt" content="Pedada Vikram - Computer Science Engineering Student">
 
-    <meta property="og:site_name"
-        content="Pedada Vikram Portfolio">
+    <meta property="og:site_name" content="Pedada Vikram Portfolio">
 
 
     <!-- ================= TWITTER / X ================= -->
 
-    <meta name="twitter:card"
-        content="summary_large_image">
+    <meta name="twitter:card" content="summary_large_image">
 
-    <meta name="twitter:title"
-        content="PEDADA VIKRAM | CSE Student & Aspiring Software Developer">
+    <meta name="twitter:title" content="PEDADA VIKRAM | CSE Student & Aspiring Software Developer">
 
     <meta name="twitter:description"
         content="Portfolio of Pedada Vikram, a Computer Science Engineering student and aspiring software developer.">
 
-    <meta name="twitter:image"
-        content="https://vikram-student.github.io/Portfolio/assets/images/Vikram.webp">
+    <meta name="twitter:image" content="https://vikram-student.github.io/Portfolio/assets/images/Vikram.webp">
 
-    <meta name="twitter:image:alt"
-        content="Pedada Vikram - Computer Science Engineering Student">
+    <meta name="twitter:image:alt" content="Pedada Vikram - Computer Science Engineering Student">
 
 
     <!-- ================= FONTS / STYLES ================= -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap">
-
     <link rel="stylesheet"
-        href="CSS/style.css">
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap">
+
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/cinematic.css">
 
 </head>
 
@@ -125,13 +111,14 @@
                 <a href="#learning" class="nav-link">Learning</a>
                 <a href="#projects" class="nav-link">Projects</a>
                 <a href="#contact" class="nav-link">Contact</a>
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark mode"
+                <!--<button id="theme-toggle" class="theme-toggle" aria-label="Toggle light and dark mode"
                     title="Toggle theme">
                     ☀️
-                </button>
+                </button>-->
             </nav>
 
-            <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-navigation">
+            <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false"
+                aria-controls="main-navigation">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -141,8 +128,28 @@
     </header>
 
 
-    <!-- ================= HERO ================= -->
+    <!-- ================= CINEMATIC INTRO ================= -->
     <main>
+        <section class="cinematic-sequence" id="cinematic-intro" aria-label="Cinematic introduction">
+            <div class="cinematic-stage">
+                <canvas id="cinematic-canvas" aria-label="Scroll-controlled cinematic introduction"></canvas>
+                <div class="cinematic-shade" aria-hidden="true"></div>
+                <div class="cinematic-copy cinematic-copy-start">
+                    <p class="cinematic-kicker">PEDADA VIKRAM <span> / PORTFOLIO 2026</span></p>
+                    <h1>BUILDING<br><span>WHAT'S NEXT.</span></h1>
+                    <p class="cinematic-subtitle">The journey of a developer, one idea at a time.</p>
+                    <span class="cinematic-scroll">SCROLL TO EXPLORE <i></i></span>
+                </div>
+                <div class="cinematic-copy cinematic-copy-end">
+                    <p class="cinematic-kicker">DEVELOPER · CREATOR · PROBLEM SOLVER</p>
+                    <h2>PEDADA VIKRAM</h2>
+                    <a href="#home" class="cinematic-link">ENTER PORTFOLIO <span>↗</span></a>
+                </div>
+                <div class="cinematic-hud"><span>INTRO / 01</span><span id="cinematic-frame-readout">0001 / 2063</span>
+                </div>
+                <div class="cinematic-progress"><span id="cinematic-progress-bar"></span></div>
+            </div>
+        </section>
 
         <section id="home" class="hero">
 
@@ -213,7 +220,8 @@
 
                     <div class="hero-image-wrapper">
 
-                        <img src="assets/images/Vikram.webp" alt="Pedada Vikram" class="hero-image" width="928" height="1120" fetchpriority="high" decoding="async">
+                        <img src="assets/images/vikram.webp" alt="Pedada Vikram" class="hero-image" width="928"
+                            height="1120" fetchpriority="high" decoding="async">
 
                     </div>
 
@@ -678,73 +686,450 @@
             PROJECTS SECTION
         ========================================================= -->
 
-        <section id="projects" class="portfolio-section reveal">
+
+        <!-- =========================================================
+     PROJECTS — CINEMATIC STORYTELLING
+========================================================= -->
+
+        <section id="projects" class="portfolio-section project-story-section">
 
             <div class="container">
 
-                <div class="section-heading">
-                    <span class="section-label">PROJECTS</span>
+                <!-- PROJECTS INTRO CARD -->
+                <div class="project-intro-card">
 
-                    <h2>
-                        What I'm <span>building</span>
-                    </h2>
+                    <div class="project-intro-top">
+                        <span>PORTFOLIO / SELECTED WORK</span>
+                        <span>01 — 04</span>
+                    </div>
 
-                    <p>
-                        I'm currently developing my project portfolio.
-                        More real-world projects will be added here as I build them.
-                    </p>
+                    <div class="project-intro-content">
+                        <p class="project-intro-label">A COLLECTION OF IDEAS & EXPERIMENTS</p>
+
+                        <h2>
+                            SCROLL TO<br>
+                            <span>EXPLORE.</span>
+                        </h2>
+
+                        <p class="project-intro-tagline">
+                            Ideas in motion. Projects taking shape.
+                        </p>
+                    </div>
+
+                    <div class="project-intro-bottom">
+                        <span>FOUR PROJECTS. ONE JOURNEY.</span>
+
+                        <span class="project-intro-scroll">
+                            KEEP SCROLLING
+                            <span>↓</span>
+                        </span>
+                    </div>
+
                 </div>
 
+                <!-- PROJECT NAVIGATION INDEX -->
 
-                <div class="project-coming-soon glass-card">
+                <nav class="project-index" aria-label="Project navigation">
 
-                    <div class="project-coming-icon">
-                        &lt;/&gt;
+                    <a href="#project-academiaos">
+                        <span>01</span>
+                        <span>ACADEMIAOS</span>
+                        <span>↗</span>
+                    </a>
+
+                    <a href="#project-freelanceflow">
+                        <span>02</span>
+                        <span>FREELANCEFLOW</span>
+                        <span>↗</span>
+                    </a>
+
+                    <a href="#project-neon-snake">
+                        <span>03</span>
+                        <span>NEON SNAKE GAME</span>
+                        <span>↗</span>
+                    </a>
+
+                    <a href="#project-lost-found">
+                        <span>04</span>
+                        <span>COLLEGE LOST &amp; FOUND</span>
+                        <span>↗</span>
+                    </a>
+
+                </nav>
+
+
+                <!-- PROJECT 01: ACADEMIAOS -->
+
+                <article class="project-story" id="project-academiaos">
+
+                    <div class="project-story-visual academia-visual">
+
+                        <div class="academia-visual-top">
+                            <span>PROJECT / 001</span>
+                            <span>ACADEMIC TECHNOLOGY</span>
+                        </div>
+
+                        <div class="academia-visual-center">
+                            <span class="academia-symbol">A<span>OS</span></span>
+                            <span class="academia-visual-line"></span>
+                            <p>ONE PLATFORM. TWO ACADEMIC ENVIRONMENTS.</p>
+                        </div>
+
+                        <div class="academia-visual-bottom">
+                            <span>STUDENT</span>
+                            <span>FACULTY</span>
+                            <span>ACADEMIC MANAGEMENT</span>
+                        </div>
+
                     </div>
 
-                    <span class="project-badge">
-                        BUILDING MY PORTFOLIO
-                    </span>
+                    <div class="project-story-content">
 
-                    <h3>
-                        Projects are on the way
-                    </h3>
-
-                    <p>
-                        I'm learning, experimenting, and working toward
-                        building useful real-world applications. This section
-                        will grow as I complete and publish my projects.
-                    </p>
-
-                    <div class="project-roadmap">
-
-                        <div>
-                            <span>01</span>
-                            Learn
+                        <div class="project-story-meta">
+                            <span>01 / 04</span>
+                            <span class="project-status">UNDER DEVELOPMENT</span>
                         </div>
 
-                        <div>
-                            <span>02</span>
-                            Practice
+                        <p class="project-story-eyebrow">ACADEMIC MANAGEMENT PLATFORM</p>
+
+                        <h3>Academia<span>OS</span></h3>
+
+                        <p class="project-story-description">
+                            An academic management platform being developed
+                            to bring school and college workflows into one
+                            organized digital environment.
+                        </p>
+
+                        <div class="project-story-details">
+
+                            <div>
+                                <span>01</span>
+                                <p>School and college workflows</p>
+                            </div>
+
+                            <div>
+                                <span>02</span>
+                                <p>Academic and student management</p>
+                            </div>
+
+                            <div>
+                                <span>03</span>
+                                <p>Faculty and academic operations</p>
+                            </div>
+
                         </div>
 
-                        <div>
-                            <span>03</span>
-                            Build
+                        <div class="project-tech">
+                            <span>React</span>
+                            <span>Django</span>
+                            <span>REST API</span>
+                            <span>PostgreSQL</span>
                         </div>
 
-                        <div>
-                            <span>04</span>
-                            Publish
+                        <div class="project-story-actions">
+
+                            <a href="https://github.com/Vikram-Student/student-academic-platform" target="_blank"
+                                rel="noopener noreferrer" class="project-action-btn">
+                                EXPLORE THE CODE <span>↗</span>
+                            </a>
+
+                            <a href="https://academiaos-demo.onrender.com/" target="_blank" rel="noopener noreferrer"
+                                class="project-action-btn">
+                                LAUNCH PROJECT <span>↗</span>
+                            </a>
+
+                            <a href="projects/academiaos.html" class="project-action-btn project-action-secondary">
+                                DISCOVER THE BUILD <span>↗</span>
+                            </a>
+
                         </div>
 
                     </div>
 
+                </article>
+
+
+                <!-- PROJECT 02: FREELANCEFLOW -->
+
+                <article class="project-story" id="project-freelanceflow">
+
+                    <div class="project-story-visual freelance-visual">
+
+                        <div class="freelance-visual-top">
+                            <span>PROJECT / 002</span>
+                            <span>FREELANCE WORKFLOW</span>
+                        </div>
+
+                        <div class="freelance-visual-center">
+                            <span class="freelance-symbol">F<span>LOW</span></span>
+                            <span class="freelance-visual-line"></span>
+                            <p>ONE WORKFLOW. COMPLETE CONTROL.</p>
+                        </div>
+
+                        <div class="freelance-visual-bottom">
+                            <span>CLIENTS</span>
+                            <span>PROJECTS</span>
+                            <span>PAYMENTS</span>
+                        </div>
+
+                    </div>
+
+                    <div class="project-story-content">
+
+                        <div class="project-story-meta">
+                            <span>02 / 04</span>
+                            <span class="project-status">UNDER DEVELOPMENT</span>
+                        </div>
+
+                        <p class="project-story-eyebrow">FREELANCE WORKFLOW MANAGEMENT</p>
+
+                        <h3>Freelance<span>Flow</span></h3>
+
+                        <p class="project-story-description">
+                            A centralized platform designed to help freelancers
+                            manage their entire workflow — from organizing clients
+                            and tasks to keeping track of payments and ongoing work.
+                        </p>
+
+                        <div class="project-story-details">
+
+                            <div>
+                                <span>01</span>
+                                <p>Client and relationship management</p>
+                            </div>
+
+                            <div>
+                                <span>02</span>
+                                <p>Task and workflow organization</p>
+                            </div>
+
+                            <div>
+                                <span>03</span>
+                                <p>Payment tracking and financial workflow</p>
+                            </div>
+
+                        </div>
+
+                        <div class="project-tech">
+                            <span>TECHNOLOGIES TO BE CONFIRMED</span>
+                        </div>
+
+                        <div class="project-story-actions">
+
+                            <a href="#" class="project-action-btn">
+                                EXPLORE THE CODE <span>↗</span>
+                            </a>
+
+                            <a href="#" class="project-action-btn">
+                                LAUNCH PROJECT <span>↗</span>
+                            </a>
+
+                            <a href="projects/freelanceflow.html" class="project-action-btn project-action-secondary">
+                                DISCOVER THE BUILD <span>↗</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PROJECT 03: NEON SNAKE GAME -->
+
+                <article class="project-story" id="project-neon-snake">
+
+                    <div class="project-story-visual snake-visual">
+
+                        <div class="snake-visual-top">
+                            <span>PROJECT / 003</span>
+                            <span>ARCADE GAME</span>
+                        </div>
+
+                        <div class="snake-visual-center">
+                            <div class="snake-board">
+                                <span class="snake-dot"></span>
+                                <span class="snake-body"></span>
+                                <span class="snake-body snake-body-two"></span>
+                                <span class="snake-head"></span>
+                                <span class="snake-food"></span>
+                            </div>
+
+                            <span class="snake-visual-line"></span>
+                            <p>THINK FAST. MOVE SMART.</p>
+                        </div>
+
+                        <div class="snake-visual-bottom">
+                            <span>STRATEGY</span>
+                            <span>REACTION</span>
+                            <span>ARCADE</span>
+                        </div>
+
+                    </div>
+
+                    <div class="project-story-content">
+
+                        <div class="project-story-meta">
+                            <span>03 / 04</span>
+                            <span class="project-status">UNDER DEVELOPMENT</span>
+                        </div>
+
+                        <p class="project-story-eyebrow">ARCADE GAME PROJECT</p>
+
+                        <h3>Neon Snake<span> Game</span></h3>
+
+                        <p class="project-story-description">
+                            A neon-inspired take on the classic Snake game,
+                            focused on fast reactions, movement and arcade-style
+                            gameplay.
+                        </p>
+
+                        <div class="project-story-details">
+
+                            <div>
+                                <span>01</span>
+                                <p>Classic snake-inspired gameplay</p>
+                            </div>
+
+                            <div>
+                                <span>02</span>
+                                <p>Neon visual direction</p>
+                            </div>
+
+                            <div>
+                                <span>03</span>
+                                <p>Arcade-style experience</p>
+                            </div>
+
+                        </div>
+
+                        <div class="project-tech">
+                            <span>TECHNOLOGIES TO BE CONFIRMED</span>
+                        </div>
+
+                        <div class="project-story-actions">
+
+                            <a href="https://github.com/Vikram-Student/neon-snake-game" class="project-action-btn">
+                                EXPLORE THE CODE <span>↗</span>
+                            </a>
+
+                            <a href="https://github.com/Vikram-Student/neon-snake-game" class="project-action-btn">
+                                LAUNCH PROJECT <span>↗</span>
+                            </a>
+
+                            <a href="projects/neon-snake.html" class="project-action-btn project-action-secondary">
+                                DISCOVER THE BUILD <span>↗</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PROJECT 04: COLLEGE LOST & FOUND -->
+
+                <article class="project-story" id="project-lost-found">
+
+                    <div class="project-story-visual lostfound-visual">
+
+                        <div class="lostfound-visual-top">
+                            <span>PROJECT / 004</span>
+                            <span>CAMPUS COMMUNITY</span>
+                        </div>
+
+                        <div class="lostfound-visual-center">
+
+                            <div class="lostfound-symbol">
+                                <span class="lostfound-search"></span>
+                                <span class="lostfound-handle"></span>
+                            </div>
+
+                            <span class="lostfound-visual-line"></span>
+
+                            <p>LOST SOMETHING? FIND IT HERE.</p>
+
+                        </div>
+
+                        <div class="lostfound-visual-bottom">
+                            <span>REPORT</span>
+                            <span>DISCOVER</span>
+                            <span>RECONNECT</span>
+                        </div>
+
+                    </div>
+
+                    <div class="project-story-content">
+
+                        <div class="project-story-meta">
+                            <span>04 / 04</span>
+                            <span class="project-status">UNDER DEVELOPMENT</span>
+                        </div>
+
+                        <p class="project-story-eyebrow">CAMPUS COMMUNITY PLATFORM</p>
+
+                        <h3>College Lost <span>&amp; Found</span></h3>
+
+                        <p class="project-story-description">
+                            A campus-focused project concept designed to help
+                            students reconnect with belongings lost or found
+                            within their college community.
+                        </p>
+
+                        <div class="project-story-details">
+
+                            <div>
+                                <span>01</span>
+                                <p>Lost item reporting</p>
+                            </div>
+
+                            <div>
+                                <span>02</span>
+                                <p>Found item discovery</p>
+                            </div>
+
+                            <div>
+                                <span>03</span>
+                                <p>Campus item recovery</p>
+                            </div>
+
+                        </div>
+
+                        <div class="project-tech">
+                            <span>TECHNOLOGIES TO BE CONFIRMED</span>
+                        </div>
+
+                        <div class="project-story-actions">
+
+                            <a href="#" class="project-action-btn">
+                                EXPLORE THE CODE <span>↗</span>
+                            </a>
+
+                            <a href="#" class="project-action-btn">
+                                LAUNCH PROJECT <span>↗</span>
+                            </a>
+
+                            <a href="projects/lost-found.html" class="project-action-btn project-action-secondary">
+                                DISCOVER THE BUILD <span>↗</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <div class="project-story-footer">
+                    <span>MORE PROJECTS</span>
+                    <span>COMING INTO FOCUS — 02 / 04</span>
                 </div>
 
             </div>
 
         </section>
+
 
 
         <!-- =========================================================
@@ -857,7 +1242,8 @@
 
                     <div class="contact-form-container">
 
-                        <form id="contact-form" class="contact-form" method="POST" action="https://script.google.com/macros/s/AKfycbwhoWFc54rVPoADa3doGVoOwmQL2Jl4nsASYymJB_xRuRwDcturK9e3kwh2Mk1qcL0/exec"
+                        <form id="contact-form" class="contact-form" method="POST"
+                            action="https://script.google.com/macros/s/AKfycbwhoWFc54rVPoADa3doGVoOwmQL2Jl4nsASYymJB_xRuRwDcturK9e3kwh2Mk1qcL0/exec"
                             target="contact-submit-frame">
 
                             <div class="form-row">
@@ -962,6 +1348,8 @@
         ↑
     </button>
 
+    <script src="config.js" defer></script>
+    <script src="JS/cinematic.js" defer></script>
     <script src="JS/script.js" defer></script>
 
 </body>
